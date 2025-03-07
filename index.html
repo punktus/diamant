@@ -51,9 +51,12 @@
 </head>
 <body>
 	
-	<div id="dataDisplay">Waiting for data...</div>
+	<div id="dataDisplay" hidden>Waiting for data...</div>
 	
-	<header><h1>Spelet Diamant</h1></header>
+	<header>
+		<h1 id="title"></h1>
+		<p id="description"></p>
+	</header>
 	
 	<div id="game-info" hidden>
 		<h2>GAme info</h2>
@@ -138,6 +141,10 @@
         users: [],
 		
 		settings: {
+			texts: {
+				'title': 'Spelet Diamant',
+				'description': '...som det riktiga spelet, fast sämre'
+			},
 			gameStates: {
 				0: 'init', // create OR join
 				1: 'start', // created - users joining - owner can click to start 
@@ -152,6 +159,9 @@
 	}
 
 	// Elements (buttons & sections)
+	const titleEl = document.getElementById('title'); 
+	const descriptionEl = document.getElementById('description');
+		
 	const joinBtn = document.getElementById('joinBtn');
 	const createBtn = document.getElementById('createBtn');
 	const homeBtn = document.getElementById('homeBtn');
@@ -160,6 +170,7 @@
     // Start 
     function init(){
         console.log('init');
+		setTexts();
     }
 		
     // Connect
@@ -197,6 +208,11 @@
 	    }
     }
 
+		function setTexts(){
+			console.log('setTexts');
+			titleEl.textContent =game.settings.text.title;
+			descriptionEl.textContent =game.settings.text.description;
+		}
    
 
     //
