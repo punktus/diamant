@@ -9,30 +9,39 @@
 	<meta name="description" content="" />
 	<style>
 		:root {
-			--card-size: 80px;
+			--card-size: 93px; /* hahaha jag är kul */
+			--main-color:  #cf6f6f;
+			--color1: #ffc0cb;
+			--color2: #c0cbff;
+			/**/
+			--card-color: var(--color1);
 		}
 		
-		html { background-color: #cfcf0f; }
+		html { 
+			background-color: var(--main-color);
+		     }
 		body {
 			text-align: center;
 		}
 		main > div {
-			outline: 2px dotted green;
+			outline: 3px dotted green;
 			margin: 0.5em;
 			padding: 0.5em;
 		}
 		.cards {
 			display: flex;
 			flex-wrap: wrap;
+			justify-content: center;
 			gap: 20px;
+			margin: 20px 0;
 		}
 		.card { 
-			outline: 1px dotted green;
+			outline: 3px dotted green;
 			width: var(--card-size);
 			height: var(--card-size);
 			line-height: var(--card-size);
-			white-space: nowrap;
-			background: pink;
+			background-color: var(--card-color);
+			white-space: nowrap;			
 			padding: 5px;
 			overflow: hidden;
 			text-overflow: ellipsis;
@@ -138,7 +147,7 @@
 			2: 'play', // round running - users choosing
 			3: 'new-round', // round done - owner can start new round
 			4: 'game-over' // show rank (no restart, sorry)
-		}
+		},
 		colors: ['red', 'blue', 'yellow', 'purple', 'beige', 'greeen','salmon', 'darkturquoise', 'orange', 'aquamarine'],		
 		version: "1.0.0",
 		author: "Pontus Kastberg - punktus@öpunktus.nu"
