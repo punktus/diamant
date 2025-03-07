@@ -298,11 +298,11 @@ function setTexts(){
 	//}
 
 	function toggleUi(disable){
-		console.log('toggleUi');
+		console.log('toggleUi', disable);
 
 		// Set the disabled state based on the passed boolean parameter
 		buttonsAndInputs.forEach(element => {
-			element.disabled = disable;
+			element.disabled = !disable;
 	    	});		
 	}
 
