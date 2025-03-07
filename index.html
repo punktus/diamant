@@ -64,8 +64,8 @@
 	<div id="dataDisplay" hidden>Waiting for data...</div>
 	
 	<header>
-		<h1 id="title"></h1>
-		<p id="description"></p>
+		<h1 id="game-title"></h1>
+		<p id="game-description"></p>
 	</header>
 	
 	<div id="game-info" hidden>
@@ -85,21 +85,21 @@
 	<main>
 		
 		<div id="step-init">
-			<h2>Join game</h2>
+			<h2 id="join-title"></h2>
 			<div>
-				<label for="join-field">Join game</label>
+				<label for="join-field" id="join-label"></label>
 				<input id="join-field" type="text" name="">
-				<button id="joinBtn">Join</button>
+				<button id="join-button"></button>
 			</div>
 			<div>
-				<h2>Create game</h2>
-				<button id="createBtn">New Game</button>
+				<h2 id="create-title"></h2>
+				<button id="create-button"></button>
 			</div>
 		</div>
 
 		<div id="step-start" hidden>
 			<h2>Start game: [<span></span>]</h2>
-			<button id="startBtn">Start</button>
+			<button id="start-button">Start</button>
 		</div>
 
 		<div id="step-play" hidden>
@@ -110,13 +110,13 @@
 				<div class="card">Kort 3</div>
 				<div class="card">Kort 4</div>
 			</div>
-			<button id="homeBtn">Hem</button>
-			<button id="downBtn">Ner</button>
+			<button id="home-button">Hem</button>
+			<button id="down-button">Ner</button>
 		</div>
 
 		<div id="step-new-round" hidden>
 			<h2>New round</h2>
-			<button id="startRoundBtn"></button>
+			<button id="start-round-button"></button>
 		</div>
 		
 		<div id="step-game-over" hidden>
@@ -153,8 +153,15 @@
 		
 		settings: {
 			texts: {
-				'title': 'Spelet Diamant',
-				'description': '...som det riktiga spelet, fast sämre'
+				// Header
+				'gameTitle': 'Spelet Diamant',
+				'gameDescription': '...som det riktiga spelet, fast sämre',
+				// init
+				'joinTitle': 'Join game',
+				'joinLabel': 'Join game',
+				'joinButton': 'Join',
+				'createTitle': 'Create game',
+				'createButton': 'New game',
 			},
 			gameStates: {
 				0: 'init', // create OR join
@@ -170,15 +177,23 @@
 	}
 
 	// Elements (buttons & sections)
-	const titleEl = document.getElementById('title'); 
-	const descriptionEl = document.getElementById('description');
-		
-	const joinBtn = document.getElementById('joinBtn');
-	const createBtn = document.getElementById('createBtn');
-	const homeBtn = document.getElementById('homeBtn');
-    const downBtn = document.getElementById('downBtn');
+	const gameTitle = document.getElementById('game-title'); 
+	const gameDescription = document.getElementById('game-description');
 
-    // Start 
+	const joinTitle = document.getElementById('join-title');
+	const joinLabel = document.getElementById('join-label');
+	const joinButton = document.getElementById('join-button');
+	const createTitle = document.getElementById('create-title');
+	const createButton = document.getElementById('create-button');
+
+		
+	const homeButton = document.getElementById('home-button');
+    const downButton = document.getElementById('down-button');
+
+	// Select all button and input elements on the page
+	const buttonsAndInputs = document.querySelectorAll('button, input');
+    
+	// Start 
     function init(){
         console.log('init');
 		setTexts();
@@ -221,8 +236,18 @@
 
 	function setTexts(){
 		console.log('setTexts');
-		titleEl.textContent = game.settings.texts.title;
-		descriptionEl.textContent = game.settings.texts.description;
+
+		// Header
+		gameTitle.textContent = game.settings.texts.title;
+		gameDescription.textContent = game.settings.texts.description;
+
+		// init
+		joinTitle.textContent = game.settings.texts.joinTitle;
+		joinLabel.textContent = game.settings.texts.joinLabel;
+		joinButton.textContent = game.settings.texts.joinButton;
+		createTitle.textContent =  game.settings.texts.createTitle;
+		createButton.textContent = game.settings.texts.createButton;
+		
 	}
    
 
@@ -249,29 +274,39 @@
 
 
 	// events
-	joinBtn.addEventListener('click', function() {
+	joinButton.addEventListener('click', function() {
 	  console.log('join!');
+
+		//
+		toggleUi(disable){
 	});
 		
-	createBtn.addEventListener('click', function() {
+	createButton.addEventListener('click', function() {
 	  console.log('create!');
+		toggleUi(disable){
 	});
 
-	homeBtn.addEventListener('click', function() {
+	homeButton.addEventListener('click', function() {
 	  console.log('home!');
 	});
 	
-	downBtn.addEventListener('click', function() {
+	downButton.addEventListener('click', function() {
 	  console.log('down!');
 	});
 		
-    //homeBtn.onclick = function () {
+    //homeButton.onclick = function () {
         //socket.send('home', userId);
         //log('home', 'send');
     //}
 
-		function toggleUi(){
-			console.log('toggleUi')
+		function toggleUi(disable){
+			console.log('toggleUi');
+
+			// Set the disabled state based on the passed boolean parameter
+		    buttonsAndInputs.forEach(element => {
+		        element.disabled = disable;
+		    });
+			
 		}
 
 		
