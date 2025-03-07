@@ -62,33 +62,24 @@
 	
 	<main>
 		
-		<div id="step-create-join">
+		<div id="step-init">
 			<h2>Join / Create game</h2>
 			<div>
 				<label for="join-field">Join game</label>
 				<input id="join-field" type="text" name="">
-				<button id="join-game">Join</button>
+				<button id="joinBtn">Join</button>
 			</div>
 			<div>
-				<button id="to-create-game">New Game</button>
+				<button id="createBtn">New Game</button>
 			</div>
-		</div>			
-
-		<div id="step-create">
-			<h2>Create New Game</h2>
-			<div>
-				<label for="create-field">Create new game</label>
-				<input id="create-field" type="text" name="">
-				<button id="create-game">Create</button>
-			</div>		
 		</div>
 
-		<div id="step-start-game">
+		<div id="step-start">
 			<h2>Start game: [<span></span>]</h2>
-			<button id="start-game">Start</button>
+			<button id="startBtn">Start</button>
 		</div>
 
-		<div id="step-play-game">
+		<div id="step-play">
 			<h2>Play</h2>
 			<div class="cards">
 				<div class="card">Kort 1</div>
@@ -96,8 +87,13 @@
 				<div class="card">Kort 3</div>
 				<div class="card">Kort 4</div>
 			</div>
-			<button id="home">Hem</button>
-			<button id="down">Ner</button>
+			<button id="homeBtn">Hem</button>
+			<button id="downBtn">Ner</button>
+		</div>
+
+		<div id="step-new-round">
+			<h2>New round</h2>
+			<button id="startRoundBtn"></button>
 		</div>
 		
 		<div id="step-game-over">
@@ -109,12 +105,13 @@
 				<li><span>12p</span> <span>Beige</span></li>
 				<li><span>1p</span> <span>Rosa</span></li>
 			</ul>
+				<p>Slut i rutan!</p>
 		</div>
 
 		<div id="game-user">
 			<h2>Game user</h3>
-			färg<br>
-			poäng i kistan<br>
+			färg<br />
+			poäng i kistan<br />
 			poäng i näven
 		</div>
 
@@ -128,10 +125,24 @@
         gameId: '123456',
         userId: '19770823',
         
-        status: 0,
+        gameState: 0,
         users: [],
-
+		
     };
+	
+		
+	game.settings = {
+		gameStates: {
+			0: 'init', // create OR join
+			1: 'start', // created - users joining - owner can click to start 
+			2: 'play', // round running - users choosing
+			3: 'new-round', // round done - owner can start new round
+			4: 'game-over' // show rank (no restart, sorry)
+		}
+		colors: ['red', 'blue', 'yellow', 'purple', 'beige', 'greeen','salmon', 'darkturquoise', 'orange', 'aquamarine'],		
+		version: "1.0.0",
+		author: "Pontus Kastberg - punktus@öpunktus.nu"
+	}
 
 	// Step 1: Establish a WebSocket connection
 	const socket = new WebSocket('wss://echo.websocket.org');
