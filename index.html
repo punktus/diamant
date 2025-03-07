@@ -188,16 +188,16 @@
 
 		
 	const homeButton = document.getElementById('home-button');
-    const downButton = document.getElementById('down-button');
+    	const downButton = document.getElementById('down-button');
 
 	// Select all button and input elements on the page
 	const buttonsAndInputs = document.querySelectorAll('button, input');
     
-	// Start 
-    function init(){
-        console.log('init');
+	// Start
+	function init(){
+	        console.log('init');
 		setTexts();
-    }
+	}
 		
     // Connect
     function connect() {
@@ -234,21 +234,21 @@
 	    }
     }
 
-	function setTexts(){
-		console.log('setTexts');
+function setTexts(){
+	console.log('setTexts');
 
-		// Header
-		gameTitle.textContent = game.settings.texts.title;
-		gameDescription.textContent = game.settings.texts.description;
+	// Header
+	gameTitle.textContent = game.settings.texts.title;
+	gameDescription.textContent = game.settings.texts.description;
 
-		// init
-		joinTitle.textContent = game.settings.texts.joinTitle;
-		joinLabel.textContent = game.settings.texts.joinLabel;
-		joinButton.textContent = game.settings.texts.joinButton;
-		createTitle.textContent =  game.settings.texts.createTitle;
-		createButton.textContent = game.settings.texts.createButton;
-		
-	}
+	// init
+	joinTitle.textContent = game.settings.texts.joinTitle;
+	joinLabel.textContent = game.settings.texts.joinLabel;
+	joinButton.textContent = game.settings.texts.joinButton;
+	createTitle.textContent =  game.settings.texts.createTitle;
+	createButton.textContent = game.settings.texts.createButton;
+	
+}
    
 
     //
@@ -256,58 +256,55 @@
         console.log('updateUi');
     }
 
-/*    // Set up a loop to send a message every 5 seconds (5000 milliseconds)
-    setInterval(() => {
-
-        // Your message to send
-        const message = { data: 'Hello, Server!' };
-
-        // Send the message through the WebSocket
-        socket.send(JSON.stringify(message));
-
-        console.log('Message sent:', message);
-
-    }, 5000);
-*/
+	/*    // Set up a loop to send a message every 5 seconds (5000 milliseconds)
+	setInterval(() => {
+	
+	// Your message to send
+	const message = { data: 'Hello, Server!' };
+	
+	// Send the message through the WebSocket
+	socket.send(JSON.stringify(message));
+	
+	console.log('Message sent:', message);
+	
+	}, 5000);
+	*/
 
     
 
 
 	// events
 	joinButton.addEventListener('click', function() {
-	  console.log('join!');
-
-		//
-		toggleUi(disable){
-	});
+		console.log('join!');
+		toggleUi(disable)
+	);
 		
 	createButton.addEventListener('click', function() {
-	  console.log('create!');
-		toggleUi(disable){
-	});
+		console.log('create!');
+		toggleUi(disable)
+	);
 
 	homeButton.addEventListener('click', function() {
-	  console.log('home!');
+		console.log('home!');
 	});
 	
 	downButton.addEventListener('click', function() {
-	  console.log('down!');
+		console.log('down!');
 	});
 		
-    //homeButton.onclick = function () {
-        //socket.send('home', userId);
-        //log('home', 'send');
-    //}
+	//homeButton.onclick = function () {
+		//socket.send('home', userId);
+		//log('home', 'send');
+	//}
 
-		function toggleUi(disable){
-			console.log('toggleUi');
+	function toggleUi(disable){
+		console.log('toggleUi');
 
-			// Set the disabled state based on the passed boolean parameter
-		    buttonsAndInputs.forEach(element => {
-		        element.disabled = disable;
-		    });
-			
-		}
+		// Set the disabled state based on the passed boolean parameter
+		buttonsAndInputs.forEach(element => {
+			element.disabled = disable;
+	    	});		
+	}
 
 		
 	// initiate da shajt
