@@ -137,42 +137,67 @@
         gameState: 0,
         users: [],
 		
-    };
-	
-		
-	game.settings = {
-		gameStates: {
-			0: 'init', // create OR join
-			1: 'start', // created - users joining - owner can click to start 
-			2: 'play', // round running - users choosing
-			3: 'new-round', // round done - owner can start new round
-			4: 'game-over' // show rank (no restart, sorry)
-		},
-		colors: ['red', 'blue', 'yellow', 'purple', 'beige', 'greeen','salmon', 'darkturquoise', 'orange', 'aquamarine'],		
-		version: "1.0.0",
-		author: "Pontus Kastberg - punktus@öpunktus.nu"
+		settings = {
+			gameStates: {
+				0: 'init', // create OR join
+				1: 'start', // created - users joining - owner can click to start 
+				2: 'play', // round running - users choosing
+				3: 'new-round', // round done - owner can start new round
+				4: 'game-over' // show rank (no restart, sorry)
+			},
+			colors: ['red', 'blue', 'yellow', 'purple', 'beige', 'greeen','salmon', 'darkturquoise', 'orange', 'aquamarine'],		
+			version: "1.0.0",
+			author: "Pontus Kastberg - punktus@öpunktus.nu"
+		}
 	}
 
-	// Step 1: Establish a WebSocket connection
-	const socket = new WebSocket('wss://echo.websocket.org');
+	// Elements (buttons & sections)
+	const joinBtn = document.getElementById('joinBtn');
+	const createBtn = document.getElementById('createBtn');
+	const homeBtn = document.getElementById('homeBtn');
+    const downBtn = document.getElementById('downBtn');
 
-
-    // Step 2: Listen for WebSocket events
-    socket.onopen = () => {
-        console.log('WebSocket connection established.');
-
-        socket.send('Hello, WebSocket!');
-    }
-
-    // Connect
-    function connect() {
-        console.log('connect');
-    }
-
-    //
+    // Start 
     function init(){
         console.log('init');
     }
+		
+    // Connect
+    function connect() {
+        console.log('connect');
+
+	    // 1: Establish a WebSocket connection
+		const socket = new WebSocket('wss://echo.websocket.org');
+
+	     // 2: Listen for WebSocket events
+	    socket.onopen = () => {
+	        console.log('WebSocket connection established.');
+	
+	        socket.send('Hello, WebSocket!');
+	    }
+
+		// 3: Handle the incoming message and update the UI
+		socket.onmessage = (event) => {
+	        
+	    	console.log('Message received from WebSocket:', event.data);
+	
+	        const data = event.data; // The data sent by the WebSocket server
+	        const dataDisplayElement = document.getElementById('dataDisplay');
+	        
+	        // Update the UI with the received data
+	        dataDisplayElement.textContent = `Received data: ${data}`;
+	    }
+	
+	    socket.onerror = (error) => {
+	        console.log(`WebSocket Error: ${error}`);
+	    }
+	
+	    socket.onclose = () => {
+	        console.log('WebSocket connection closed.');
+	    }
+    }
+
+   
 
     //
     function updateUi(){
@@ -193,33 +218,36 @@
     }, 5000);
 */
 
-    socket.onmessage = (event) => {
-        // Step 3: Handle the incoming message and update the UI
+    
 
-    	console.log('Message received from WebSocket:', event.data);
 
-        const data = event.data; // The data sent by the WebSocket server
-        const dataDisplayElement = document.getElementById('dataDisplay');
-        
-        // Update the UI with the received data
-        dataDisplayElement.textContent = `Received data: ${data}`;
-    }
+	// events
+	joinBtn.addEventListener('click', function() {
+	  console.log('join!');
+	});
+		
+	createBtn.addEventListener('click', function() {
+	  console.log('create!');
+	});
 
-    socket.onerror = (error) => {
-        console.log(`WebSocket Error: ${error}`);
-    }
-
-    socket.onclose = () => {
-        console.log('WebSocket connection closed.');
-    }
-
-    var homeBtn = document.getElementById('home');
-    var downBtn = document.getElementById('down');
-
-    homeBtn.onclick = function () {
-        socket.send('home', userId);
+		homeBtn.addEventListener('click', function() {
+		  console.log('home!');
+		});
+		
+		downBtn.addEventListener('click', function() {
+		  console.log('down!');
+		});
+		
+    //homeBtn.onclick = function () {
+        //socket.send('home', userId);
         //log('home', 'send');
-    }
+    //}
+
+
+		
+	// initiate da shajt
+	init();
+	
 </script>
 </body>
 </html>
