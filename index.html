@@ -19,8 +19,14 @@
 		
 		html { 
 			background-color: var(--main-color);
-		     }
+			height: 100%;
+		}
 		body {
+			height: 100%;
+			display: flex;
+			justify-content: center;
+		    align-items: center;
+		    flex-wrap: wrap;
 			text-align: center;
 		}
 		main > div {
@@ -59,7 +65,7 @@
 	</header>
 	
 	<div id="game-info" hidden>
-		<h2>GAme info</h2>
+		<h2>Game info</h2>
 		
 		<p>Spel: 123-456</p>
 		<p>Runda: 1</p>
@@ -75,13 +81,15 @@
 	<main>
 		
 		<div id="step-init">
-			<h2>Join / Create game</h2>
+			<h2>Join game</h2>
 			<div>
 				<label for="join-field">Join game</label>
 				<input id="join-field" type="text" name="">
 				<button id="joinBtn">Join</button>
 			</div>
+			<div>...or</div>
 			<div>
+				<h2>Create game</h2>
 				<button id="createBtn">New Game</button>
 			</div>
 		</div>
@@ -208,11 +216,11 @@
 	    }
     }
 
-		function setTexts(){
-			console.log('setTexts');
-			titleEl.textContent =game.settings.text.title;
-			descriptionEl.textContent =game.settings.text.description;
-		}
+	function setTexts(){
+		console.log('setTexts');
+		titleEl.textContent = game.settings.texts.title;
+		descriptionEl.textContent = game.settings.texts.description;
+	}
    
 
     //
