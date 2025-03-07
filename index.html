@@ -1,0 +1,143 @@
+
+<!doctype html>
+<html lang="sv-se">
+<head>
+  <meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<meta name="description" content="" />
+	<style>
+	
+		html { background-color: #cfcfcf; }
+		body {}
+		main > div {
+      outline: 2px dotted green;
+			margin: 0.5em;
+			padding: 0.5em;
+		}
+	</style>
+</head>
+<body>
+	<header><h1>Diamant</h1></header>
+	<main>
+
+		<div id="dataDisplay">Waiting for data...</div>
+
+		<div>
+			<h2>Join / Create game</h2>
+			<form>
+				<label for="join-field">Join game</label>
+				<input id="join-field" type="text" name="">
+				<button id="join-game">Join</button>
+
+				<button id="to-create-game">New Game</button>
+			</form>
+		</div>
+
+		<div>
+			<h2>New</h2>
+			<form>
+				<label for="create-field">Create new game</label>
+				<input id="create-field" type="text" name="">
+				<button id="create-game">Create</button>
+			</form>		
+		</div>
+
+		<div>
+			<h2>Start game: [<span></span>]</h2>
+				<button id="start-game">Start</button>
+		</div>
+
+		<div>
+			<h2>Play</h2>
+			<div class="cards">
+				<div class="card">Kort 1</div>
+			</div>
+			<button id="home">Hem</button>
+			<button id="down">Ner</button>
+		</div>
+
+	</main>
+	<script>
+    //
+    const game = {
+
+        gameId: '123456',
+        userId: '19770823',
+        
+        status: 0,
+        users: [],
+
+    };
+
+	// Step 1: Establish a WebSocket connection
+	const socket = new WebSocket('wss://echo.websocket.org');
+
+
+    // Step 2: Listen for WebSocket events
+    socket.onopen = () => {
+        console.log('WebSocket connection established.');
+
+        socket.send('Hello, WebSocket!');
+    }
+
+    // Connect
+    function connect() {
+        console.log('connect');
+    }
+
+    //
+    function init(){
+        console.log('init');
+    }
+
+    //
+    function updateUi(){
+        console.log('updateUi');
+    }
+
+/*    // Set up a loop to send a message every 5 seconds (5000 milliseconds)
+    setInterval(() => {
+
+        // Your message to send
+        const message = { data: 'Hello, Server!' };
+
+        // Send the message through the WebSocket
+        socket.send(JSON.stringify(message));
+
+        console.log('Message sent:', message);
+
+    }, 5000);
+*/
+
+    socket.onmessage = (event) => {
+        // Step 3: Handle the incoming message and update the UI
+
+    	console.log('Message received from WebSocket:', event.data);
+
+        const data = event.data; // The data sent by the WebSocket server
+        const dataDisplayElement = document.getElementById('dataDisplay');
+        
+        // Update the UI with the received data
+        dataDisplayElement.textContent = `Received data: ${data}`;
+    }
+
+    socket.onerror = (error) => {
+        console.log(`WebSocket Error: ${error}`);
+    }
+
+    socket.onclose = () => {
+        console.log('WebSocket connection closed.');
+    }
+
+    var homeBtn = document.getElementById('home');
+    var downBtn = document.getElementById('down');
+
+    homeBtn.onclick = function () {
+        socket.send('home', userId);
+        //log('home', 'send');
+    }
+</script>
+</body>
+</html>
