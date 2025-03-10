@@ -1,21 +1,24 @@
-
 <!doctype html>
 <html lang="sv-se">
 <head>
   <meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+	<title>Diamant</title>
 	<meta name="description" content="" />
 	<style>
-		:root {
-			--card-size: 93px; /* hahaha jag är kul */
-			--main-color:  #cf6f6f;
-			--color1: #ffc0cb;
-			--color2: #c0cbff;
-			/**/
-			--card-color: var(--color1);
-		}
+        :root {
+            --card-size: 93px; /* hahaha jag är kul */
+            --main-color: #cf6f6f;
+            --color1: #ffc0cb;
+            --color2: #c0cbff;
+            --color3: #cca0ab;
+            /**/
+            --card-color: var(--color1);
+            /**/
+            --border: 2px solid var(--color3);
+            --border-radius: 4px;
+        }
 		
 		html { 
 			background-color: var(--main-color);
@@ -28,6 +31,9 @@
 			flex-wrap: wrap;
 			text-align: center;
 			margin: 0;
+			font-family: Garamond;
+			font-weight: bold;
+			font-size: large;
 		}
 		header {
 			width: 100%;
@@ -57,6 +63,16 @@
 			text-overflow: ellipsis;
 			text-align: center;
 		}
+        input {
+            padding: .75em 1.25em;
+            border: var(--border);
+            border-radius: var(--border-radius);
+        }
+		button {
+			padding: .75em 1.25em;
+			border: var(--border);
+			border-radius: var(--border-radius);
+		}
 	</style>
 </head>
 <body>
@@ -68,7 +84,7 @@
 		<p id="game-description"></p>
 	</header>
 	
-	<div id="game-info" hidden>
+	<section id="game-info" hidden>
 		<h2>Game info</h2>
 		
 		<p>Spel: 123-456</p>
@@ -79,12 +95,12 @@
 			<li><span>x</span> Röd</li>
 			<li><span>x</span> Rosa</li>
 		</ul>
-	</div>
+	</section>
 
 	
 	<main>
 		
-		<div id="step-init">
+		<section id="step-init">
 			<h2 id="join-title"></h2>
 			<div>
 				<label for="join-field" id="join-label"></label>
@@ -95,14 +111,14 @@
 				<h2 id="create-title"></h2>
 				<button id="create-button"></button>
 			</div>
-		</div>
+		</section>
 
-		<div id="step-start" hidden>
+		<section id="step-start" hidden>
 			<h2>Start game: [<span></span>]</h2>
 			<button id="start-button">Start</button>
-		</div>
+		</section>
 
-		<div id="step-play" hidden>
+		<section id="step-play" hidden>
 			<h2>Play</h2>
 			<div class="cards">
 				<div class="card">Kort 1</div>
@@ -112,14 +128,14 @@
 			</div>
 			<button id="home-button">Hem</button>
 			<button id="down-button">Ner</button>
-		</div>
+		</section>
 
-		<div id="step-new-round" hidden>
+		<section id="step-new-round" hidden>
 			<h2>New round</h2>
 			<button id="start-round-button"></button>
-		</div>
+		</section>
 		
-		<div id="step-game-over" hidden>
+		<section id="step-game-over" hidden>
 			<h2>Game Over</h2>
 			<p>VInnaren är.....</p>
 			<ol>
@@ -127,16 +143,16 @@
 				<li><span>78p</span> <span>Röd</span></li>
 				<li><span>12p</span> <span>Beige</span></li>
 				<li><span>1p</span> <span>Rosa</span></li>
-			</ul>
-				<p>Slut i rutan!</p>
-		</div>
+			</ol>
+			<p>Slut i rutan!</p>
+		</section>
 
-		<div id="game-user" hidden>
-			<h2>Game user</h3>
+		<section id="game-user" hidden>
+			<h2>Game user</h2>
 			färg<br />
 			poäng i kistan<br />
 			poäng i näven
-		</div>
+		</section>
 
 	</main>
 	
@@ -188,7 +204,7 @@
 
 		
 	const homeButton = document.getElementById('home-button');
-    	const downButton = document.getElementById('down-button');
+    const downButton = document.getElementById('down-button');
 
 	// Select all button and input elements on the page
 	const buttonsAndInputs = document.querySelectorAll('button, input');
@@ -202,6 +218,7 @@
     // Connect
     function connect() {
         console.log('connect');
+		if (socket && socket.readyState === WebSocket.OPEN) return;
 
 	    // 1: Establish a WebSocket connection
 		const socket = new WebSocket('wss://echo.websocket.org');
@@ -234,21 +251,22 @@
 	    }
     }
 
-function setTexts(){
-	console.log('setTexts');
+	function setTexts(){
+		console.log('setTexts');
+		const texts = game.settings.texts;
 
-	// Header
-	gameTitle.textContent = game.settings.texts.gameTitle;
-	gameDescription.textContent = game.settings.texts.gameDescription;
+		// Header
+		gameTitle.textContent = texts.gameTitle;
+		gameDescription.textContent = texts.gameDescription;
 
-	// init
-	joinTitle.textContent = game.settings.texts.joinTitle;
-	joinLabel.textContent = game.settings.texts.joinLabel;
-	joinButton.textContent = game.settings.texts.joinButton;
-	createTitle.textContent =  game.settings.texts.createTitle;
-	createButton.textContent = game.settings.texts.createButton;
+		// init
+		joinTitle.textContent = texts.joinTitle;
+		joinLabel.textContent = texts.joinLabel;
+		joinButton.textContent = texts.joinButton;
+		createTitle.textContent =  texts.createTitle;
+		createButton.textContent = texts.createButton;
 	
-}
+	}
    
 
     //
